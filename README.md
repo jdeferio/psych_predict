@@ -4,7 +4,6 @@ Predicting incident psychiatric hospitalizations (depression, bipolar/manic/othe
 
 
 **Weill Cornell Medicine**
-
 Department of Healthcare Policy & Research
-
 Division of Health Informatics
+
