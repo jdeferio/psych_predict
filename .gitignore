@@ -1,0 +1,4 @@
+# Ignore These Encodings #
+*.csv
+*.png
+*.DS_Store
