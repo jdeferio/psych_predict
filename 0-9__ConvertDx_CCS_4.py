@@ -1,15 +1,14 @@
 import pandas as pd
 import datetime as dt
-
-PATH = '/Users/jdeferio/PycharmProjects/CDRN_Individual/venv/'
+import dask as da
 
 # IMPORT DATA
-case_control = pd.read_csv(PATH + 'cdrn_psych_casecontrol2.csv', encoding='utf-8')
+case_control = pd.read_csv('./cdrn_psych_casecontrol2.csv', encoding='utf-8')
 
 
 def cohort_id(df):
     df = pd.DataFrame(df['person_id'])
-    dx = pd.read_csv(PATH + 'cdrn_all_individual_dx_1218.csv', encoding='utf-8',
+    dx = pd.read_csv('./cdrn_all_individual_dx_1218.csv', encoding='utf-8',
                      names=["person_id", "condition_start_date", "condition_source_value"])
     print("N records in cdrn_dx: {}".format(len(dx)))
     print("N patients in cdrn_dx: {}n".format(dx.person_id.nunique()))
@@ -34,7 +33,7 @@ def cohort_id(df):
 
 
 def dx_convert1(df):
-    output_filepath = PATH + 'cdrn_ccs_results1_.csv'
+    output_filepath = './cdrn_ccs_results1_.csv'
 
     # Establish the CCS Results Dictionary
     results_ccs1 = {"person_id": [], "condition_start_date": [], "tuberculosis": [], "septic": [], "bact_infec": [],

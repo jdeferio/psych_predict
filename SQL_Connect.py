@@ -1,18 +1,24 @@
 import psycopg2
 import psycopg2.extras
 import sys
-import pprint
+import os
+from configparser import ConfigParser
 
 
 def connect_DB():
-    #Define our connection string
-    conn_string = "host='vits-hpr-postgres' dbname='mdd' user='jod2033' password='Equo12726'"
+    CREDENTIALS = os.environ['CREDENTIALS']
 
-    #print the connection string we will use to connect
-    print("Connecting to database\n ->%s" % (conn_string))
+    parser = ConfigParser()
+    parser.read('/'+CREDENTIALS+'/user.cfg')
+    data = {
+        'host': parser.get('wcm_credentials', 'host'),
+        'dbname': parser.get('wcm_credentials', 'database'),
+        'user': parser.get('wcm_credentials', 'user_name'),
+        'password': parser.get('wcm_credentials', 'password')
+    }
 
     #get a connection, is a connect cannot be made an exception will be raised here
-    conn = psycopg2.connect(conn_string)
+    conn = psycopg2.connect(data)
 
     # conn.cursor will return a cursor object, you can use this cursor to perform queries
     cursor = conn.cursor('cursor_unique_name', cursor_factory=psycopg2.extras.DictCursor)
