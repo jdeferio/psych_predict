@@ -43,18 +43,10 @@ from sklearn import preprocessing
 from sklearn.calibration import CalibratedClassifierCV
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import (
-    classification_report,
-    confusion_matrix,
-    roc_auc_score,
-    roc_curve,
-)
-from sklearn.model_selection import (
-    GridSearchCV,
-    RandomizedSearchCV,
-    cross_val_score,
-    train_test_split,
-)
+from sklearn.metrics import (classification_report, confusion_matrix,
+                             roc_auc_score, roc_curve)
+from sklearn.model_selection import (GridSearchCV, RandomizedSearchCV,
+                                     cross_val_score, train_test_split)
 from xgboost.sklearn import XGBClassifier
 
 plt.rc("font", size=14)
