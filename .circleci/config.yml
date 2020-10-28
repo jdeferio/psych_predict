@@ -7,6 +7,9 @@ jobs:
           pkg-manager: poetry
       - run:
           command: |
+            poetry add pytest
+      - run:
+          command: |
             poetry run pytest --version
           name: Test it
   
@@ -16,7 +19,8 @@ jobs:
       - checkout
       - run:
           name: run black
-          command: black pytext --check --diff
+          command: |
+            black pytext --check --diff
       - run:
           name: run isort
           command: |
