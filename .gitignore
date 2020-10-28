@@ -137,5 +137,6 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-# DS Store
+# OS Files
 .DS_Store
+.DS_Store?
