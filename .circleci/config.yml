@@ -36,11 +36,11 @@ jobs:
       - run:
           name: run isort
           command: |
-              isort . --check-only
+              isort . --recursive --check-only
       - run:
           name: run docformatter
           command: |
-              docformatter . --check
+              docformatter . --recursive --check
 orbs:
   python: circleci/python@1.0.0
   
