@@ -1,3 +1,10 @@
+_run:
+  install_system_deps: &install_system_deps
+    name: install_system_deps
+    command: |
+      sudo apt-get update
+      sudo apt-get install -y python-pip python-dev
+
 jobs:
   build:
     executor: python/default
@@ -14,17 +21,18 @@ jobs:
           name: Test it
   
   python_lint:
-    executor: python/default
+    docker:
+      - image: circleci/python:3.8
     steps:
       - checkout
+      - run: *install_system_deps
       - run:
           name: setup lint
           command: |
               sudo pip install black==20.8b1 isort==4.3.21
       - run:
           name: run black
-          command: |
-            black psych_predict --check --diff
+          command: black psych_predict --check --diff
       - run:
           name: run isort
           command: |
@@ -32,6 +40,7 @@ jobs:
                   --line-width 88 --lines-after-imports 2 --combine-as --section-default THIRDPARTY --check-only
 orbs:
   python: circleci/python@1.0.0
+  
 version: 2.1
 workflows:
   main:
