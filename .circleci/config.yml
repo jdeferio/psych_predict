@@ -33,7 +33,7 @@ jobs:
       - run:
           name: run isort
           command: |
-              isort . --profile black --m 3 --tc --fgw 0 -l 88 -n --up --c --df
+              isort . --profile black -m 3 --tc --fgw 0 -l 88 -n --up --c --df
       - run:
           name: run black
           command: black . --check --diff
