@@ -11,6 +11,7 @@ New York, NY
 
 #### __Instructions for Setup__:
 1. Ensure that you have the following installed on your machine:
+   - [Git](https://git-scm.com/about): Distributed version-control system
    - [pyenv](https://github.com/pyenv/pyenv#installation): Python version management  
    - [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv): Pyenv virtual environment plugin
    - [Poetry](https://python-poetry.org/docs/#installation): Package/Dependency Manager
