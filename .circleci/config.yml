@@ -33,9 +33,7 @@ jobs:
       - run:
           name: run isort
           command: |
-              isort . --profile black --multi-line 3 --trailing-comma --force-grid-wrap 0 \ 
-                --line-width 88 --ensure-newline-before-comments --use-parentheses \
-                --check --diff
+              isort . --profile black --m 3 --tc --fgw 0 -l 88 -n --up --c --df
       - run:
           name: run black
           command: black . --check --diff

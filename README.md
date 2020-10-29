@@ -12,7 +12,8 @@ New York, NY
 #### __Instructions for Setup__:
 1. Ensure that you have the following installed on your machine:
    - [Git](https://git-scm.com/about): Distributed version-control system
-   - [pyenv](https://github.com/pyenv/pyenv#installation): Python version management  
+   - [pyenv](https://github.com/pyenv/pyenv#installation): Python version management 
+      - Python 3.7 or greater: `pyenv install 3.7.0`
    - [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv): Pyenv virtual environment plugin
    - [Poetry](https://python-poetry.org/docs/#installation): Package/Dependency Manager
 2. Clone the repository by navigating to your desired directory and typing the following command into your terminal:
