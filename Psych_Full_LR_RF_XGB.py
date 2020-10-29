@@ -1,9 +1,7 @@
-"""
-For LR models:
-    (1) Comment out (#) Model fit and plots (lines 223 > 254); uncomment regularization penalty space (lines 206 > 221)
-        (a) run model
-    (2) Comment regularization penalty space (lines 206 > 221); Uncomment out Model fit and plots (lines 223 > 254);
-        (a) run model
+"""For LR models: (1) Comment out (#) Model fit and plots (lines 223 > 254);
+uncomment regularization penalty space (lines 206 > 221) (a) run model (2)
+Comment regularization penalty space (lines 206 > 221); Uncomment out Model fit
+and plots (lines 223 > 254); (a) run model.
 
 For XGB models:
     (1) run model 1 and adjust the feature importance threshold (line 290) to remove low/negative features;
@@ -30,12 +28,14 @@ For RF models:
             (iii.) adjust feature importance thresholds (line 440); re-run as necessary
     (2) model 2: follow steps for model 1 to run Randomized Search, Grid Search, and Feature Selection
             (i.) comment out the 'unwanted' and ft variable lines for the first run
-
 """
+
+import warnings
 
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import seaborn as sns
 import xgboost as xgb
 from imblearn.over_sampling import SMOTE
 from rfpimp import *
@@ -43,21 +43,25 @@ from sklearn import preprocessing
 from sklearn.calibration import CalibratedClassifierCV
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import (classification_report, confusion_matrix,
-                             roc_auc_score, roc_curve)
-from sklearn.model_selection import (GridSearchCV, RandomizedSearchCV,
-                                     cross_val_score, train_test_split)
+from sklearn.metrics import (
+    classification_report,
+    confusion_matrix,
+    roc_auc_score,
+    roc_curve,
+)
+from sklearn.model_selection import (
+    GridSearchCV,
+    RandomizedSearchCV,
+    cross_val_score,
+    train_test_split,
+)
 from xgboost.sklearn import XGBClassifier
 
 plt.rc("font", size=14)
-import seaborn as sns
-
 sns.set(style="white")
 sns.set(style="whitegrid", color_codes=True)
 
 # ignore Deprecation Warning
-import warnings
-
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 warnings.filterwarnings("ignore", category=FutureWarning)
 
