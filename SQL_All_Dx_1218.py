@@ -12,8 +12,7 @@ def main():
 
     # Selects all patient diagnoses that match the inclusion criteria: visit in 2012, 2013, 2014
     sql = "select co.person_id, co.condition_start_date, co.condition_source_value from staging.condition_occurrence as co where co.condition_start_date between '2012-01-01' and '2017-12-31' union all select co.person_id, co.condition_start_date, co.condition_source_value from mdd_control.condition_occurrence as co where co.condition_start_date between '2012-01-01' and '2017-12-31'"
-    # 2012-01-01 to 2015-12-31
-    # 2016-01-01 to 2017-12-31
+
     cursor.execute(sql)
 
     with io.open(os.path.join("data", output_file), "w", encoding="utf-8") as f:

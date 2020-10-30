@@ -25,4 +25,16 @@ git clone https://github.com/jdeferio/psych_predict.git
 poetry shell
 poetry install
 ```
+<br />
 
+---
+#### __Data Collection Overview__
+<br />
+
+Script Name|Description|Data Type
+:---|:---|:---
+`sql_all_dx_1218.py`|Pull all patient diagnosis data between years 2012-2018 for patient population|ICD-9,  ICD-10
+`sql_all_visits_1218.py`|Pull all visit data between years 2012-2018
+`sql_procedures_1218.py`|Pull all procedures performed during the years 2012-2018|ICD-9, ICD-10, *CPT (_to be included / replace ICD_)
+`sql_drug_exposure_1218.py`|All output medications prescribed during the 2012-2018 period|VA Class
+`sql_pt_demographics.py`|Age, gender, and birthdate for the population
