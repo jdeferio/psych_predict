@@ -11,7 +11,31 @@ def main():
     output_file = "cdrn_all_demographics.csv"
 
     # Selects all patients in the cohort and reports their gender, birth date, and age at '2014-01-01'
-    sql = "select one.*, round(ceil((extract(epoch from age('2014-01-01', birth_date)) / 86400))/365) as age from (select distinct person_id, gender_concept_id, make_date(year_of_birth, month_of_birth, day_of_birth) as birth_date from staging.person ) as one union select one.*, round(ceil((extract(epoch from age('2014-01-01', birth_date)) / 86400))/365) as age from (select distinct person_id, gender_concept_id, make_date(year_of_birth, month_of_birth, day_of_birth) as birth_date from mdd_control.person) as one"
+    sql = """
+        SELECT
+            one.*,
+            round(ceil((extract(epoch FROM age('2014-01-01', birth_date)) / 86400)) / 365) AS age
+        FROM ( SELECT DISTINCT
+                person_id,
+                gender_concept_id,
+                make_date (year_of_birth,
+                    month_of_birth,
+                    day_of_birth) AS birth_date
+            FROM
+                staging.person) AS one
+        UNION
+        SELECT
+            one.*,
+            round(ceil((extract(epoch FROM age('2014-01-01', birth_date)) / 86400)) / 365) AS age
+        FROM ( SELECT DISTINCT
+                person_id,
+                gender_concept_id,
+                make_date (year_of_birth,
+                    month_of_birth,
+                    day_of_birth) AS birth_date
+            FROM
+                mdd_control.person) AS one
+    """
 
     cursor.execute(sql)
 

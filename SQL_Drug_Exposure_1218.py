@@ -12,7 +12,39 @@ def main():
     output_file = "cdrn_drug_exposure_1218.csv"
 
     # Selects all patient diagnoses that match the inclusion criteria: visit in 2012, 2013, 2014
-    sql = "select de.person_id, de.drug_exposure_start_date, co.concept_name, c1.concept_name as drug_class  from staging.drug_exposure de  join staging.concept co on co.concept_id = de.drug_concept_id join staging.concept_ancestor ca on ca.descendant_concept_id = co.concept_id join staging.concept c1 on c1.concept_id = ca.ancestor_concept_id and c1.vocabulary_id = 'VA Class' join staging.visit_occurrence vi on de.visit_occurrence_id = vi.visit_occurrence_id where (de.drug_exposure_start_date between '2012-01-01' and '2017-12-31') and (vi.visit_concept_id = 9202)  union  select de.person_id, de.drug_exposure_start_date, co.concept_name, c1.concept_name as drug_class from mdd_control.drug_exposure de  join staging.concept co on co.concept_id = de.drug_concept_id join staging.concept_ancestor ca on ca.descendant_concept_id = co.concept_id join staging.concept c1 on c1.concept_id = ca.ancestor_concept_id and c1.vocabulary_id = 'VA Class' join staging.visit_occurrence vi on de.visit_occurrence_id = vi.visit_occurrence_id where (de.drug_exposure_start_date between '2012-01-01' and '2017-12-31') and vi.visit_concept_id = 9202"
+    sql = """
+        SELECT
+            de.person_id,
+            de.drug_exposure_start_date,
+            co.concept_name,
+            c1.concept_name AS drug_class
+        FROM
+            staging.drug_exposure de
+            JOIN staging.concept co ON co.concept_id = de.drug_concept_id
+            JOIN staging.concept_ancestor ca ON ca.descendant_concept_id = co.concept_id
+            JOIN staging.concept c1 ON c1.concept_id = ca.ancestor_concept_id
+                AND c1.vocabulary_id = 'VA Class'
+            JOIN staging.visit_occurrence vi ON de.visit_occurrence_id = vi.visit_occurrence_id
+        WHERE (de.drug_exposure_start_date BETWEEN '2012-01-01'
+            AND '2017-12-31')
+        and(vi.visit_concept_id = 9202)
+        UNION
+        SELECT
+            de.person_id,
+            de.drug_exposure_start_date,
+            co.concept_name,
+            c1.concept_name AS drug_class
+        FROM
+            mdd_control.drug_exposure de
+            JOIN staging.concept co ON co.concept_id = de.drug_concept_id
+            JOIN staging.concept_ancestor ca ON ca.descendant_concept_id = co.concept_id
+            JOIN staging.concept c1 ON c1.concept_id = ca.ancestor_concept_id
+                AND c1.vocabulary_id = 'VA Class'
+            JOIN staging.visit_occurrence vi ON de.visit_occurrence_id = vi.visit_occurrence_id
+        WHERE (de.drug_exposure_start_date BETWEEN '2012-01-01'
+            AND '2017-12-31')
+        AND vi.visit_concept_id = 9202
+    """
 
     cursor.execute(sql)
 

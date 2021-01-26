@@ -9,7 +9,29 @@ def main():
     output_file = "cdrn_all_visits_1218.csv"
 
     # Selects all patient diagnoses that match the inclusion criteria: visit in 2012, 2013, 2014
-    sql = "select vi.person_id, vi.visit_occurrence_id, vi.visit_start_date, vi.visit_concept_id from staging.visit_occurrence as vi where vi.visit_start_date between '2012-01-01' and '2017-12-31' union all select vi.person_id, vi.visit_occurrence_id, vi.visit_start_date, vi.visit_concept_id from mdd_control.visit_occurrence as vi where vi.visit_start_date between '2012-01-01' and '2017-12-31'"
+    sql = """
+        SELECT
+            vi.person_id,
+            vi.visit_occurrence_id,
+            vi.visit_start_date,
+            vi.visit_concept_id
+        FROM
+            staging.visit_occurrence AS vi
+        WHERE
+            vi.visit_start_date BETWEEN '2012-01-01'
+            AND '2017-12-31'
+        UNION ALL
+        SELECT
+            vi.person_id,
+            vi.visit_occurrence_id,
+            vi.visit_start_date,
+            vi.visit_concept_id
+        FROM
+            mdd_control.visit_occurrence AS vi
+        WHERE
+            vi.visit_start_date BETWEEN '2012-01-01'
+            AND '2017-12-31'
+    """
 
     cursor.execute(sql)
 

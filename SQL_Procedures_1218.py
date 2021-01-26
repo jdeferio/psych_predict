@@ -11,7 +11,29 @@ def main():
     output_file = "cdrn_all_procs_1218.csv"
 
     # Selects all patient diagnoses that match the inclusion criteria: visit in 2012, 2013, 2014
-    sql = "select co.person_id, co.procedure_date, co.procedure_source_value from staging.procedure_occurrence as co where (co.procedure_date between '2012-01-01' and '2017-12-31') and ((co.procedure_source_value like 'ICD10%') or (co.procedure_source_value like 'ICD9%')) union all select co.person_id, co.procedure_date, co.procedure_source_value from mdd_control.procedure_occurrence as co where (co.procedure_date between '2012-01-01' and '2017-12-31') and ((co.procedure_source_value like 'ICD10%') or (co.procedure_source_value like 'ICD9%'))"
+    sql = """
+        SELECT
+            co.person_id,
+            co.procedure_date,
+            co.procedure_source_value
+        FROM
+            staging.procedure_occurrence AS co
+        WHERE (co.procedure_date BETWEEN '2012-01-01'
+            AND '2017-12-31')
+        and((co.procedure_source_value LIKE 'ICD10%')
+            or(co.procedure_source_value LIKE 'ICD9%'))
+        UNION ALL
+        SELECT
+            co.person_id,
+            co.procedure_date,
+            co.procedure_source_value
+        FROM
+            mdd_control.procedure_occurrence AS co
+        WHERE (co.procedure_date BETWEEN '2012-01-01'
+            AND '2017-12-31')
+        and((co.procedure_source_value LIKE 'ICD10%')
+            or(co.procedure_source_value LIKE 'ICD9%'))
+    """
     # 2012-01-01 to 2015-12-31
     # 2016-01-01 to 2017-12-31
     cursor.execute(sql)

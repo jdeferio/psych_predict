@@ -11,7 +11,26 @@ def main():
     output_file = "cdrn_all_individual_dx_1218.csv"
 
     # Selects all patient diagnoses that match the inclusion criteria: visit in 2012, 2013, 2014
-    sql = "select co.person_id, co.condition_start_date, co.condition_source_value from staging.condition_occurrence as co where co.condition_start_date between '2012-01-01' and '2017-12-31' union all select co.person_id, co.condition_start_date, co.condition_source_value from mdd_control.condition_occurrence as co where co.condition_start_date between '2012-01-01' and '2017-12-31'"
+    sql = """SELECT
+                co.person_id,
+                co.condition_start_date,
+                co.condition_source_value
+            FROM
+                staging.condition_occurrence AS co
+            WHERE
+                co.condition_start_date BETWEEN '2012-01-01'
+                AND '2017-12-31'
+            UNION ALL
+            SELECT
+                co.person_id,
+                co.condition_start_date,
+                co.condition_source_value
+            FROM
+                mdd_control.condition_occurrence AS co
+            WHERE
+                co.condition_start_date BETWEEN '2012-01-01'
+                AND '2017-12-31'
+        """
 
     cursor.execute(sql)
 
